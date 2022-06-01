@@ -5,7 +5,7 @@ import argparse
 class ArgParser:
     def __init__(self):
         pass
-    
+
     def likes_scraper_read_input(self):
 
         parser = argparse.ArgumentParser('Instagram likes scraper')
@@ -17,4 +17,6 @@ class ArgParser:
         required.add_argument("-p", "--password", help="IG password", required=True)
         required.add_argument("-t", "--target_post", help="Target IG post url", required=True)
 
+        optional.add_argument("-o", "--output_folder", help="Folder in which store the scrapes", required=False, default='./output')
+        print(parser.parse_args())
         return parser.parse_args()

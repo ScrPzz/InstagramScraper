@@ -22,23 +22,16 @@ class ChromeDriver:
 
 
     def set_up_driver(self):
-        proxy=self.set_up_proxy() 
+        #proxy=self.set_up_proxy() 
 
         
         co = webdriver.ChromeOptions()
         co.add_argument('--ignore-ssl-errors=yes')
         co.add_argument('--ignore-certificate-errors')
-        co.add_argument('--proxy-server={host}:{port}'.format(host='localhost', port=proxy.port))
-        co.add_argument('--no-sandbox')
-        co.add_argument("--disable-dev-shm-using") 
-        co.add_argument("--disable-extensions") 
-        co.add_argument("--disable-gpu") 
-        co.add_argument("--incognito")
-        co.add_argument("--disable-notifications")
-        co.add_argument("disable-infobars") 
-        co.add_argument("--disable-setuid-sandbox") 
-        co.add_argument('--disable-dev-shm-usage')
-
+        #co.add_argument("--incognito")
+        #co.add_argument("--disable-notifications")
+        #co.add_argument("--disable-extensions") 
+        
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), chrome_options=co)
 
         return driver
@@ -56,11 +49,12 @@ class ChromeDriver:
         if 'steps' in kwargs.keys():
             for step in range(0, int(kwargs['steps'])):
                 wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Not Now']"))).click() # Do not save login infos 
-                wait = WebDriverWait(driver, 5)
+                wait = WebDriverWait(driver, 30)
                 wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Not Now']"))).click() # Disable notifications 
+                wait = WebDriverWait(driver, 30)
         else:
             wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Not Now']"))).click() # Do not save login infos 
-            wait = WebDriverWait(driver, 5)
-            wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Not Now']"))).click() # Disable notifications 
-
+            wait = WebDriverWait(driver, 30)
+            #wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Not Now']"))).click() # Disable notifications 
+            #wait = WebDriverWait(driver, 30)
         return driver
