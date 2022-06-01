@@ -8,7 +8,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 
 def test_user_agent_setup():
-    """ Testing correct user agent setup for Chrome using http://httpbin.org/headers as reference"""
+    """ Testing correct user agent setup in Chrome driver using http://httpbin.org/headers as reference"""
     co = webdriver.ChromeOptions()
     ua = UserAgent()
     user_agent = {"User-Agent": str(ua.random)}
