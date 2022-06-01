@@ -1,5 +1,5 @@
 from itertools import count
-from src.geoloc_aux import fetch_country_code, fetch_country_name
+from scripts.aux.geoloc_aux import fetch_country_code, fetch_country_name
 
 
 

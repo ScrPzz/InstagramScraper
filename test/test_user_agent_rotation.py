@@ -1,4 +1,3 @@
-import imp
 from scripts.user_agents_rotator import UserAgent
 from fake_useragent import UserAgent
 import requests
