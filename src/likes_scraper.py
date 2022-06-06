@@ -119,10 +119,6 @@ class LikesScraper():
         data=self.raw_data_parser(likes_raw=likes_raw)
 
 
-
-
-        #print(data.describe()) # TODO remove
-
         if os.path.exists(args.output_folder):
             pass
         else:

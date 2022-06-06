@@ -2,8 +2,7 @@ from scripts.user_agents_rotator import UserAgent
 from fake_useragent import UserAgent
 import requests
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+
 
 
 def test_user_agent_setup():

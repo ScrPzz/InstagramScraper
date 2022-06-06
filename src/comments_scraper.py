@@ -1,13 +1,10 @@
 import logging
-
-from grpc import compute_engine_channel_credentials
 from scripts.argparser import ArgParser
 from scripts.aux.misc_aux import extract_shortcode_from_url
 from scripts.chrome_driver import ChromeDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import urllib
 from time import sleep
 import numpy as np
 import random

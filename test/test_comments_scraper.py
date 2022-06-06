@@ -1,8 +1,6 @@
 
-
 from src.comments_scraper import CommentsScraper
 from scripts.chrome_driver import ChromeDriver
-from selenium.webdriver.common.by import By
 from time import sleep
 import os
 
@@ -18,7 +16,7 @@ def test_comments_scraper_basic():
     username=os.getenv('TEST_IG_USER'),
     password=os.getenv('TEST_IG_PWD'),
     target_post=os.getenv('TEST_TARGET_POST'),
-    max_iterations=1) # set max_iteration to 1 to not make too many calls and get IG angry
+    max_iterations=1) # max_iterations is set to 1 in order to not make too many calls and get IG angry
 
     chrome_driver=ChromeDriver()
 

@@ -1,5 +1,10 @@
 
+import logging
 import pandas as pd
+
+logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.CRITICAL)
+
+
 def fetch_country_code(country: str):
     """ Function that extract country infos (lat, long and full name) from a country code string.
         If no match satisfying match is found, will choose a random location.
@@ -20,8 +25,8 @@ def fetch_country_code(country: str):
                     "longitude": float(country_data['longitude']),
                     "accuracy": 100
                     }
-                
-                print(f"... found! Localized to: {country_data['country_name'].values[0]}")
+
+                logging.info(f"Localized to: {country_data['country_name'].values[0]}")
             else:
                 # Choosing a random location
                 import random
@@ -31,7 +36,7 @@ def fetch_country_code(country: str):
                     "longitude": float(country_data['longitude']),
                     "accuracy": 100
                     }
-                print(f"... cannot find the requested location. Localazing to random location: {country_data['country_name']}") 
+                logging.info(f"... cannot find the requested location. Localizing to random location") 
                 
         except:
             import random
@@ -41,7 +46,7 @@ def fetch_country_code(country: str):
                     "longitude": float(country_data['longitude']),
                     "accuracy": 100
                     }
-            print(f"Cannot find the requested code. Localizing to random location: {country_data['country_name']}")
+            logging.info(f"... cannot find the requested location. Localizing to random location") 
     else:
         import random
         country_data=geoloc_data.iloc[random.randrange(0, len(geoloc_data))]
@@ -50,7 +55,7 @@ def fetch_country_code(country: str):
                 "longitude": float(country_data['longitude']),
                 "accuracy": 100
                 }
-        print(f"Invalid country code or country name input. Localizing to random location: {country_data['country_name']}") 
+        logging.info(f"... cannot find the requested location. Localizing to random location") 
     return location_params
 
 

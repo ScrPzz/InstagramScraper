@@ -4,10 +4,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-import random
-from time import sleep
-import urllib.parse
-from collections import namedtuple
 from browsermobproxy import Server
 
 

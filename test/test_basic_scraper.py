@@ -1,7 +1,6 @@
 from calendar import c
 from src.likes_scraper import LikesScraper
 from scripts.chrome_driver import ChromeDriver
-from selenium.webdriver.common.by import By
 from time import sleep
 
 class ArgSpace:

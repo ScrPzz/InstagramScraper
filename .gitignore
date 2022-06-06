@@ -4,3 +4,4 @@ output/
 bmp.log
 server.log
 .env
+.vscode
