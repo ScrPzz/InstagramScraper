@@ -18,16 +18,18 @@ class ChromeDriver:
     def set_up_proxy(self):
         server = Server("./bin/browsermob-proxy-2.1.4/bin/browsermob-proxy")
         server.start()
-        return server.create_proxy()
+        proxy=server.create_proxy()
+        return proxy
 
 
-    def set_up_driver(self):
+    def set_up_driver(self, proxy):
         #proxy=self.set_up_proxy() 
 
-        
         co = webdriver.ChromeOptions()
         co.add_argument('--ignore-ssl-errors=yes')
         co.add_argument('--ignore-certificate-errors')
+        if proxy:
+            co.add_argument('--proxy-server={host}:{port}'.format(host='localhost', port=proxy.port))
         #co.add_argument("--incognito")
         #co.add_argument("--disable-notifications")
         #co.add_argument("--disable-extensions") 
@@ -55,6 +57,6 @@ class ChromeDriver:
         else:
             wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Not Now']"))).click() # Do not save login infos 
             wait = WebDriverWait(driver, 30)
-            #wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Not Now']"))).click() # Disable notifications 
-            #wait = WebDriverWait(driver, 30)
+            wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Not Now']"))).click() # Disable notifications 
+            wait = WebDriverWait(driver, 30)
         return driver

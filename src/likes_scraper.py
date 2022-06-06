@@ -11,7 +11,7 @@ import json
 import pandas as pd
 import os
 
-
+logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.CRITICAL)
 
 class LikesScraper():
     def __init__(self):
@@ -42,7 +42,7 @@ class LikesScraper():
 
         args=argparser.likes_scraper_read_input()
         
-        driver=chrome_driver.set_up_driver()
+        driver=chrome_driver.set_up_driver(proxy='')
         driver=chrome_driver.make_IG_access(driver=driver, ig_usr=args.username, ig_pass=args.password)
         return driver, args
 

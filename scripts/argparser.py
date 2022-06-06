@@ -1,7 +1,5 @@
 import argparse
 
-
-
 class ArgParser:
     def __init__(self):
         pass
@@ -18,5 +16,6 @@ class ArgParser:
         required.add_argument("-t", "--target_post", help="Target IG post url", required=True)
 
         optional.add_argument("-o", "--output_folder", help="Folder in which store the scrapes", required=False, default='./output')
+        optional.add_argument("-N", "--max_iterations", help="Max number of iterations", required=False, default=5)
         print(parser.parse_args())
         return parser.parse_args()

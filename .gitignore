@@ -1,4 +1,6 @@
 IG_Scraper.egg-info/
 dist/
+output/
 bmp.log
 server.log
+.env

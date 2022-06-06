@@ -1,4 +1,4 @@
-from src.geoloc_aux import fetch_country_code, fetch_country_name
+from scripts.geolocation import fetch_country_code, fetch_country_name
 
 class Geolocation:
     def __init__(self):
