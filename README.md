@@ -25,7 +25,7 @@ I suggest you not to use your personal IG account to leverage this tool: IG poli
 
 - 12 post loaded ~ 1 call
 
-All the scripts got some `sleep` with random and fixed values to not spam calls too fast, but i strongly suggest you to not be greedy. Go slow!
+All the scripts got some `sleep` with random and fixed values to not spam calls too fast and the db requests too are randomized, but i strongly suggest you to not be greedy. Go slow!
 
 ## Likes scraper
 
@@ -84,6 +84,7 @@ Output will be a pandas dataframe written to a csv file and saved on the choosen
 ## Tests
 
 There basic are tests units for each tool and to check the accessibility of Instagram by Selenoum. More to come.
+Remember that also tests will make calls. I suggest you to run only the test you need and not the whole test suite at a time.
 
 ## Known issues
 
@@ -112,3 +113,7 @@ Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. 
 - MAC address spoofer creation
 
 - Geolocation spoofer onboarding
+
+- Improve the docs
+
+- Unify the parsing methods
