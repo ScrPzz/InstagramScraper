@@ -1,4 +1,3 @@
-from curses import raw
 from email.contentmanager import raw_data_manager
 import logging
 from scripts.argparser import ArgParser
@@ -45,9 +44,9 @@ class ProfileScraper():
         else:
             os.mkdir(args.output_folder)
         
-            with open(f'{args.output_folder}/{args.target_profile}_full.csv', 'w+') as f:
-                pd.DataFrame(D)[cols_to_keep].to_csv(f)
-                logging.info('Parsed data correctly saved/overwrote.')
+        with open(f'{args.output_folder}/{args.target_profile}_full.csv', 'w+') as f:
+            pd.DataFrame(D)[cols_to_keep].to_csv(f)
+            logging.info('Parsed data correctly saved/overwrote.')
 
         return pd.DataFrame(D)[cols_to_keep]
 
@@ -91,9 +90,10 @@ class ProfileScraper():
                 break
             last_height = new_height
             n_iter+=1
+
         sleep(5)
         raw_data=proxy.har
-        self.driver.quit()
+        driver.quit()
         
         # Write raw data to disk
         if save_raw_data:
@@ -101,11 +101,13 @@ class ProfileScraper():
                 pass
             else:
                 os.mkdir(args.output_folder)
-                profile_short_url=urlparse(args.target_profile).path.strip('/')
-                with open(f'{args.output_folder}/{profile_short_url}_full.csv', 'w+') as f:
-                    json.dump(proxy.har, f)
-                    logging.info('Raw data correctly saved/overwrote.')
+            profile_short_url=urlparse(args.target_profile).path.strip('/')
+            with open(f'{args.output_folder}/{profile_short_url}_full_raw.csv', 'w+') as f:
+                json.dump(proxy.har, f)
+                logging.info('Raw data correctly saved/overwrote.')
 
-        return self.parse_and_save_full_profile_raw_har(raw_data)
+        _=self.parse_and_save_full_profile_raw_har(har=raw_data, args=args)
+
+        return 
 
     
