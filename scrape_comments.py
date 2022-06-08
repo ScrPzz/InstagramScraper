@@ -8,7 +8,7 @@ if __name__=='__main__':
 
     Driver, proxy,  args = scraper.setup()
 
-    raw_data =scraper.scrape(driver=Driver, args=args, proxy=proxy)
+    raw_data =scraper.scrape(driver=Driver, args=args, proxy=proxy, save_raw_data=True)
 
     Driver.quit()
     

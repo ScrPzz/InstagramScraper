@@ -1,5 +1,10 @@
 
-from src.comments_scraper import CommentsScraper
+
+
+
+
+from telnetlib import PRAGMA_HEARTBEAT
+from src.profile_scraper import ProfileScraper
 from scripts.chrome_driver import ChromeDriver
 from time import sleep
 import os
@@ -9,8 +14,8 @@ class ArgSpace:
         self.__dict__.update(kwargs)
 
 
-def test_comments_scraper_basic():
-    scraper=CommentsScraper()
+def test_profile_scraper_basic():
+    scraper=ProfileScraper
 
     args=ArgSpace(output_folder=os.getenv('OUTPUT_FOLDER'),
     username=os.getenv('TEST_IG_USER'),
@@ -24,9 +29,8 @@ def test_comments_scraper_basic():
     Driver=chrome_driver.set_up_driver(proxy=proxy)
     Driver=chrome_driver.make_IG_access(driver=Driver, ig_usr=args.username, ig_pass=args.password)
     sleep(2)
-    raw_data=scraper.scrape(driver=Driver, proxy=proxy, args=args, save_raw_data= True)
+    raw_data=scraper.scrape(driver=Driver, proxy=proxy, args=args, save_raw_data=True)
 
-    comments_df=scraper.parse_and_save_data(raw_data=raw_data, args=args)
-    assert ~comments_df.empty
+    assert ~raw_data.empty
     Driver.quit()
     sleep(5)

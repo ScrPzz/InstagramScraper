@@ -17,5 +17,22 @@ class ArgParser:
 
         optional.add_argument("-o", "--output_folder", help="Folder in which store the scrapes", required=False, default='./output')
         optional.add_argument("-N", "--max_iterations", help="Max number of iterations", required=False, default=5)
-        print(parser.parse_args())
+        print(parser.parse_args()) # TODO remove this
+        return parser.parse_args()
+
+
+    def profile_scraper_read_input(self):
+
+        parser = argparse.ArgumentParser('Instagram profile scraper')
+        parser._action_groups.pop()
+        required = parser.add_argument_group('required arguments')
+        optional = parser.add_argument_group('optional arguments')
+
+        required.add_argument("-u", "--username", help="IG username", required=True)
+        required.add_argument("-p", "--password", help="IG password", required=True)
+        required.add_argument("-t", "--target_profile", help="Target IG profile url", required=True)
+
+        optional.add_argument("-o", "--output_folder", help="Folder in which store the scrapes", required=False, default='./output')
+        optional.add_argument("-N", "--max_iterations", help="Max number of iterations", required=False, default=3)
+        print(parser.parse_args()) # TODO remove this
         return parser.parse_args()

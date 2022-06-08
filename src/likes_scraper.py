@@ -118,7 +118,6 @@ class LikesScraper():
         
         data=self.raw_data_parser(likes_raw=likes_raw)
 
-
         if os.path.exists(args.output_folder):
             pass
         else:
