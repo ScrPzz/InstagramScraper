@@ -119,10 +119,12 @@ class LikesScraper():
         data=self.raw_data_parser(likes_raw=likes_raw)
 
         if os.path.exists(args.output_folder):
+            os.mkdir(f'{args.output_folder}/{short_code}')
             pass
         else:
             os.mkdir(args.output_folder)
+            os.mkdir(f'{args.output_folder}/{short_code}')
 
-        data.to_csv(f'{args.output_folder}/{short_code}_likes.csv', mode='w+')
+        data.to_csv(f'{args.output_folder}/{short_code}/likes.csv', mode='w+')
         logging.info('Done!')
         return 

@@ -19,7 +19,6 @@ class ProfileScraper():
     def __init__(self):
         pass
 
-
     def parse_and_save_full_profile_raw_har(self, har, args):  
         cols_to_keep=['__typename', 'id', 'shortcode', 'display_url', 'owner', 'is_video',  'accessibility_caption', 'video_url', 'video_view_count',
             'edge_media_to_caption', 'edge_media_to_comment', 'nft_asset_info', 'product_type', 'edge_liked_by']
@@ -39,13 +38,16 @@ class ProfileScraper():
                 D.append(_finditem_nested_dict(v, 'node'))
 
         # Write cleaned data to disk
+        profile_short_url=urlparse(args.target_profile).path.strip('/')
         if os.path.exists(args.output_folder):
+                os.mkdir(f'{args.output_folder}/{profile_short_url}')
                 pass
         else:
             os.mkdir(args.output_folder)
+            os.mkdir(f'{args.output_folder}/{profile_short_url}')
         
         profile_short_url=urlparse(args.target_profile).path.strip('/')
-        with open(f'{args.output_folder}/{profile_short_url}_full.csv', 'w+') as f:
+        with open(f'{args.output_folder}/{profile_short_url}/full_clean.csv', 'w+') as f:
             pd.DataFrame(D)[cols_to_keep].to_csv(f)
             logging.info('Raw data correctly saved/overwrote.')
 
@@ -97,13 +99,18 @@ class ProfileScraper():
         driver.quit()
         
         # Write raw data to disk
+        profile_short_url=urlparse(args.target_profile).path.strip('/')
         if save_raw_data:
             if os.path.exists(args.output_folder):
+                os.mkdir(f'{args.output_folder}/{profile_short_url}')
                 pass
             else:
                 os.mkdir(args.output_folder)
-            profile_short_url=urlparse(args.target_profile).path.strip('/')
-            with open(f'{args.output_folder}/{profile_short_url}_full_raw.csv', 'w+') as f:
+                os.mkdir(f'{args.output_folder}/{profile_short_url}')
+
+            
+
+            with open(f'{args.output_folder}/{profile_short_url}/full_raw.csv', 'w+') as f:
                 json.dump(proxy.har, f)
                 logging.info('Raw data correctly saved/overwrote.')
 

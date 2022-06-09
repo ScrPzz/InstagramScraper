@@ -88,6 +88,10 @@ Remember that also tests will make calls. I suggest you to run only the test you
 
 ## Known issues
 
+### Browser stuck at cookies wall
+
+During the scraping you will be able to see all the steps on a Chrome window driven by Selenium. If you see the browser stuck on "cookies wall" for more that 7-8 seconds, please consider to kill the process and start a new one. As today i don't know why this happens, i suspect because of some cookies/cache stuff, but cannot find a stable solution.
+
 ### Imports
 
 In case after installing webdriver_manager and browsermob-proxy via pip:
@@ -118,7 +122,7 @@ Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. 
 
 - Unify the parsing methods
 
-- Create a folder for each post
+- Create a folder for each post and profile ✔️
 
 - Extract location
 

@@ -62,13 +62,16 @@ class CommentsScraper():
         driver.quit()
         R=json.loads(json.dumps(proxy.har, ensure_ascii=False))
 
+        short_code=extract_shortcode_from_url(args.target_post)
         if save_raw_data:
             if os.path.exists(args.output_folder):
+                os.mkdir(f'{args.output_folder}/{short_code}')
                 pass
             else:
                 os.mkdir(args.output_folder)
-            short_code=extract_shortcode_from_url(args.target_post)
-            with open(f'{args.output_folder}/{short_code}_comments_raw.csv', 'w+') as f:
+                os.mkdir(f'{args.output_folder}/{short_code}')
+            
+            with open(f'{args.output_folder}/{short_code}/comments_raw.csv', 'w+') as f:
                 json.dump(R, f)
                 logging.info('Raw data correctly saved/overwrote.')
         return R
