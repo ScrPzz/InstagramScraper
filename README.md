@@ -1,6 +1,6 @@
 # Instagram scraper
 
-A Python tool that allows you to scrape profile informations, likes and comments from Instagram.
+I present you a Python tool that allows you to scrape profile informations, likes and comments from Instagram.
 Remember that scraping is a potentially illegal activity. This tool allows you to scrape, but the author does not encourage you to do it, not to retain or sell scraped data.
 
 ## Setting up the project
