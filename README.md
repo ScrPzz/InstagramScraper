@@ -112,9 +112,6 @@ you get an import error, try intalling the libs this way:
 
 Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. Just create a pull request!
 
-## Pre-commit stuff
-
-If you fancy to get your code PEP8 checked by black, pylint, and flake i provided a pre-commit .yaml config file.
 
 ## TODO
 
