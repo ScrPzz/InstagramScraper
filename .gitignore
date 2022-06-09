@@ -4,3 +4,6 @@ output/
 bmp.log
 server.log
 .env
+__pycache__/
+*.py[cod]
+.cache
