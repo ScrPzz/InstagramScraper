@@ -1,6 +1,7 @@
 # Instagram scraper
 
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 I present you a Python tool that allows you to scrape profile informations, likes and comments from Instagram.
 Remember that scraping is a potentially illegal activity. This tool allows you to scrape, but the author does not encourage you to do it, not to retain or sell scraped data.
@@ -111,7 +112,6 @@ you get an import error, try intalling the libs this way:
 ## Collaboration
 
 Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. Just create a pull request!
-
 
 ## TODO
 
