@@ -1,7 +1,7 @@
-from calendar import c
-from src.likes_scraper import LikesScraper
-from scripts.chrome_driver import ChromeDriver
 from time import sleep
+
+from scripts.chrome_driver import ChromeDriver
+from src.likes_scraper import LikesScraper
 
 
 class ArgSpace:
@@ -11,7 +11,7 @@ class ArgSpace:
 
 def test_ig_reach():
 
-    scraper = LikesScraper()
+    LikesScraper()
     args = ArgSpace(
         output_folder="./output",
         password="ScrPzz*85",
@@ -19,15 +19,15 @@ def test_ig_reach():
         username="at85275",
     )
     chrome_driver = ChromeDriver()
-    Driver = chrome_driver.set_up_driver()
-    Driver = chrome_driver.make_IG_access(
-        driver=Driver, ig_usr=args.username, ig_pass=args.password
+    _driver = chrome_driver.set_up_driver()
+    _driver = chrome_driver.make_IG_access_w_creds(
+        driver=_driver, ig_usr=args.username, ig_pass=args.password
     )
     sleep(2)
-    Driver.get("https://www.instagram.com/p/Cbaz0iup69q/")
-    assert Driver.current_url == "https://www.instagram.com/p/Cbaz0iup69q/"
-    Driver.delete_all_cookies()
-    Driver.quit()
+    _driver.get("https://www.instagram.com/p/Cbaz0iup69q/")
+    assert _driver.current_url == "https://www.instagram.com/p/Cbaz0iup69q/"
+    _driver.delete_all_cookies()
+    _driver.quit()
 
 
 def test_ig_basic_call_FAIL():
@@ -37,7 +37,7 @@ def test_ig_basic_call_FAIL():
     >>> If this test is green the scraping will fail! <<<
 
     """
-    scraper = LikesScraper()
+    LikesScraper()
     args = ArgSpace(
         output_folder="./output",
         password="ScrPzz*85",
@@ -45,13 +45,13 @@ def test_ig_basic_call_FAIL():
         username="at85275",
     )
     chrome_driver = ChromeDriver()
-    Driver = chrome_driver.set_up_driver()
-    Driver = chrome_driver.make_IG_access(
-        driver=Driver, ig_usr=args.username, ig_pass=args.password
+    _driver = chrome_driver.set_up_driver(proxy="")
+    _driver = chrome_driver.make_IG_access_w_creds(
+        driver=_driver, ig_usr=args.username, ig_pass=args.password
     )
     sleep(2)
-    Driver.get(args.target_post)
-    content = Driver.page_source
-    Driver.delete_all_cookies()
-    Driver.quit()
+    _driver.get(args.target_post)
+    content = _driver.page_source
+    _driver.delete_all_cookies()
+    _driver.quit()
     assert "Sorry, something went wrong" in content

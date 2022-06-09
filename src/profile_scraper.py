@@ -1,16 +1,16 @@
-from email.contentmanager import raw_data_manager
+import json
 import logging
+import os
+import random
+from time import sleep
+from urllib.parse import urlparse
+
+import numpy as np
+import pandas as pd
+
 from scripts.argparser import ArgParser
 from scripts.aux.misc_aux import _finditem_nested_dict
 from scripts.chrome_driver import ChromeDriver
-from time import sleep
-import numpy as np
-import random
-import json
-import pandas as pd
-import os
-from urllib.parse import urlparse
-
 
 logging.basicConfig(
     format="%(asctime)s | %(levelname)s: %(message)s", level=logging.CRITICAL
@@ -65,12 +65,6 @@ class ProfileScraper:
 
         # Write cleaned data to disk
         profile_short_url = urlparse(args.target_profile).path.strip("/")
-        """if os.path.exists(args.output_folder):
-                os.mkdir(f'{args.output_folder}/{profile_short_url}')
-                pass
-        else:
-            os.mkdir(args.output_folder)
-            os.mkdir(f'{args.output_folder}/{profile_short_url}')"""
 
         with open(
             f"{args.output_folder}/{profile_short_url}/full_clean.csv", "w+"
@@ -87,8 +81,7 @@ class ProfileScraper:
         args = argparser.profile_scraper_read_input()
 
         driver = chrome_driver.set_up_driver(proxy=proxy)
-        self.driver = driver
-        driver = chrome_driver.make_IG_access(
+        driver = chrome_driver.make_IG_access_w_creds(
             driver=driver, ig_usr=args.username, ig_pass=args.password
         )
         return driver, proxy, args
@@ -145,5 +138,4 @@ class ProfileScraper:
             logging.info("Raw data correctly saved/overwrote.")
 
         _ = self.parse_and_save_full_profile_raw_har(har=raw_data, args=args)
-
-        return
+        return raw_data

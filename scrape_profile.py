@@ -1,6 +1,5 @@
 from src.profile_scraper import ProfileScraper
 
-
 if __name__ == "__main__":
 
     scraper = ProfileScraper()
