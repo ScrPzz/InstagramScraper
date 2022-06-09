@@ -38,20 +38,19 @@ class CommentsScraper():
         # Random time intervals to sleep between load more comment button pushes
         ttw=[]
         for i in range(0,20):
-            ttw.append(np.round(random.uniform(2, 4), 2))
+            ttw.append(np.round(random.uniform(4, 8), 2))
 
-        ## 24 comments loaded each iteration
+        ## ~ 24 comments loaded each iteration
         check=True
         MAX_ITER=int(args.max_iterations)
         n=0
-        #har_parts=[]
+        
         while check and n<= MAX_ITER:
             sleep(int(random.choice(ttw)))
             
             try:
                 load_more_comments_button = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "[aria-label='Load more comments']")))
                 load_more_comments_button.click()
-                #har_parts.append(proxy.har)
             except: 
                 check=False
                 if n==MAX_ITER:

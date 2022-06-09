@@ -17,7 +17,7 @@ class ArgParser:
 
         optional.add_argument("-o", "--output_folder", help="Folder in which store the scrapes", required=False, default='./output')
         optional.add_argument("-N", "--max_iterations", help="Max number of iterations", required=False, default=5)
-        print(parser.parse_args()) # TODO remove this
+       
         return parser.parse_args()
 
 
@@ -34,5 +34,5 @@ class ArgParser:
 
         optional.add_argument("-o", "--output_folder", help="Folder in which store the scrapes", required=False, default='./output')
         optional.add_argument("-N", "--max_iterations", help="Max number of iterations", required=False, default=3)
-        print(parser.parse_args()) # TODO remove this
+        
         return parser.parse_args()

@@ -117,3 +117,11 @@ Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. 
 - Improve the docs
 
 - Unify the parsing methods
+
+- Create a folder for each post
+
+- Extract location
+
+- Login via session ID
+
+- Make the browser invisible?

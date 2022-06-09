@@ -44,9 +44,10 @@ class ProfileScraper():
         else:
             os.mkdir(args.output_folder)
         
-        with open(f'{args.output_folder}/{args.target_profile}_full.csv', 'w+') as f:
+        profile_short_url=urlparse(args.target_profile).path.strip('/')
+        with open(f'{args.output_folder}/{profile_short_url}_full.csv', 'w+') as f:
             pd.DataFrame(D)[cols_to_keep].to_csv(f)
-            logging.info('Parsed data correctly saved/overwrote.')
+            logging.info('Raw data correctly saved/overwrote.')
 
         return pd.DataFrame(D)[cols_to_keep]
 
