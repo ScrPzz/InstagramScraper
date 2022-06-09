@@ -5,5 +5,5 @@ bmp.log
 server.log
 .env
 __pycache__/
-*.py[cod]
+*.pyc
 .cache
