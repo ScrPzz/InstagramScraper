@@ -1,8 +1,8 @@
-""" Useragent setup class"""
+""" Useragent rotator class"""
 from fake_useragent import UserAgent
 
 
-class UserAgent:
+class UserAgentRotator:
     def __init__(self):
         pass
 
