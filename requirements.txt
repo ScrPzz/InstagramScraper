@@ -7,4 +7,3 @@ requests==2.27.1
 selenium==4.2.0
 setuptools==61.2.0
 webdriver_manager==3.7.0
-pre-commit==2.19.0
