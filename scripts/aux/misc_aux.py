@@ -1,12 +1,19 @@
+""" Some misc auxiliary functions """
+
 
 def extract_shortcode_from_url(url):
+    """Extract shortdoce from complete Instagram url"""
     if url:
-        return url.split('/')[-2]
+        return url.split("/")[-2]
     else:
-        raise ValueError('Empty or invalid url!')
+        raise ValueError("Empty or invalid url!")
+
 
 def _finditem_nested_dict(obj, key):
-    if key in obj: return obj[key]
+    """ Recursively find item by key value \
+        in a nested dictionary"""
+    if key in obj:
+        return obj[key]
     for k, v in obj.items():
         if isinstance(v, dict):
             item = _finditem_nested_dict(v, key)

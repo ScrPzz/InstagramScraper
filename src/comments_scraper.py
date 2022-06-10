@@ -1,3 +1,4 @@
+""" Comments scraper class"""
 import json
 import logging
 import os
@@ -99,7 +100,7 @@ class CommentsScraper:
                 try:
                     RAW[n] = json.loads(v["response"]["content"]["text"])["comments"]
                 except:
-                    pass
+                    raise ValueError("Unable to parse raw comments data")
 
         comments_df = pd.DataFrame.from_dict(RAW[list(RAW.keys())[0]])
         for k in list(RAW.keys())[1:]:

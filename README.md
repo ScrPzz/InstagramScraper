@@ -125,6 +125,10 @@ Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. 
 
 - Geolocation spoofer onboarding
 
+- Add deep scrape functionality
+
+- Containerize
+
 ### Secondary
 
 - Improve the docs

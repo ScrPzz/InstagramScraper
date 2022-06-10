@@ -1,12 +1,15 @@
+""" Keyboard flags parser"""
 import argparse
 
 
 class ArgParser:
+    """Argaparser wrapper class"""
+
     def __init__(self):
         pass
 
     def likes_scraper_read_input(self):
-
+        """Input reader for likes and comments scraper"""
         parser = argparse.ArgumentParser("Instagram likes scraper")
         parser._action_groups.pop()
         required = parser.add_argument_group("required arguments")
@@ -36,7 +39,7 @@ class ArgParser:
         return parser.parse_args()
 
     def profile_scraper_read_input(self):
-
+        """Input reader for full profile scraper"""
         parser = argparse.ArgumentParser("Instagram profile scraper")
         parser._action_groups.pop()
         required = parser.add_argument_group("required arguments")

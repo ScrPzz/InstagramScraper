@@ -1,7 +1,10 @@
+""" Geolocation class"""
 from scripts.geolocation import fetch_country_code, fetch_country_name
 
 
 class Geolocation:
+    """Geolocation tools class"""
+
     def __init__(self):
         pass
 

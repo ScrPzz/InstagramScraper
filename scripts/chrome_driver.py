@@ -1,4 +1,4 @@
-""" Chrome driver module"""
+""" Seleniunm chrome driver wrapper module"""
 from browsermobproxy import Server
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service

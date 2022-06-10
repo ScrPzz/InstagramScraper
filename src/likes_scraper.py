@@ -1,3 +1,4 @@
+""" Likes scraper class"""
 import json
 import logging
 import os
@@ -139,4 +140,3 @@ class LikesScraper:
 
         data.to_csv(f"{args.output_folder}/{short_code}/likes.csv", mode="w+")
         logging.info("Done!")
-        return

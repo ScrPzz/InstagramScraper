@@ -1,3 +1,4 @@
+""" Full profile scraper class"""
 import json
 import logging
 import os
@@ -22,6 +23,7 @@ class ProfileScraper:
         pass
 
     def parse_and_save_full_profile_raw_har(self, har, args):
+        """Function that parse and save the raw har file scraped"""
         cols_to_keep = [
             "__typename",
             "id",
@@ -75,6 +77,7 @@ class ProfileScraper:
         return pd.DataFrame(D)[cols_to_keep]
 
     def setup(self):
+        """Function that seutp the driver and access IG"""
         argparser = ArgParser()
         chrome_driver = ChromeDriver()
         proxy = chrome_driver.set_up_proxy()
@@ -87,6 +90,7 @@ class ProfileScraper:
         return driver, proxy, args
 
     def scrape(self, driver, proxy, args, save_raw_data=bool):
+        """Function that make the proper scraping"""
         proxy.new_har(
             args.target_profile,
             options={"captureHeaders": True, "captureContent": True},
