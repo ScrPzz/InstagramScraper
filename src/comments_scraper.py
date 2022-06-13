@@ -24,6 +24,7 @@ class CommentsScraper:
     def __init__(self):
         pass
 
+    @classmethod
     def setup(self):
         argparser = ArgParser()
         chrome_driver = ChromeDriver()
@@ -37,6 +38,7 @@ class CommentsScraper:
         )
         return driver, proxy, args
 
+    @classmethod
     def scrape(self, driver, proxy, args, save_raw_data=bool):
         proxy.new_har(
             args.target_post, options={"captureHeaders": True, "captureContent": True}
@@ -90,6 +92,7 @@ class CommentsScraper:
                 logging.info("Raw data correctly saved/overwrote.")
         return R
 
+    @classmethod
     def parse_and_save_data(self, raw_data, args):
         RAW = {}
         for n, v in enumerate(raw_data["log"]["entries"]):

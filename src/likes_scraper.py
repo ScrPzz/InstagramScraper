@@ -23,6 +23,7 @@ class LikesScraper:
     def __init__(self):
         pass
 
+    @classmethod
     def raw_data_parser(self, likes_raw):
         R = []
         for j in range(0, len(likes_raw)):
@@ -41,6 +42,7 @@ class LikesScraper:
                     continue
         return pd.DataFrame(R)
 
+    @classmethod
     def setup(self):
         argparser = ArgParser()
         chrome_driver = ChromeDriver()
@@ -53,6 +55,7 @@ class LikesScraper:
         )
         return driver, args
 
+    @classmethod
     def scrape(self, driver, args, **kwargs):
 
         query_hash = "d5d763b1e2acf209d62d22d184488e57"

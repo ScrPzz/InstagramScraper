@@ -8,6 +8,7 @@ class ArgParser:
     def __init__(self):
         pass
 
+    @classmethod
     def likes_scraper_read_input(self):
         """Input reader for likes and comments scraper"""
         parser = argparse.ArgumentParser("Instagram likes scraper")
@@ -38,6 +39,7 @@ class ArgParser:
 
         return parser.parse_args()
 
+    @classmethod
     def profile_scraper_read_input(self):
         """Input reader for full profile scraper"""
         parser = argparse.ArgumentParser("Instagram profile scraper")

@@ -22,6 +22,7 @@ class ProfileScraper:
     def __init__(self):
         pass
 
+    @classmethod
     def parse_and_save_full_profile_raw_har(self, har, args):
         """Function that parse and save the raw har file scraped"""
         cols_to_keep = [
@@ -76,6 +77,7 @@ class ProfileScraper:
 
         return pd.DataFrame(D)[cols_to_keep]
 
+    @classmethod
     def setup(self):
         """Function that seutp the driver and access IG"""
         argparser = ArgParser()
@@ -89,6 +91,7 @@ class ProfileScraper:
         )
         return driver, proxy, args
 
+    @classmethod
     def scrape(self, driver, proxy, args, save_raw_data=bool):
         """Function that make the proper scraping"""
         proxy.new_har(

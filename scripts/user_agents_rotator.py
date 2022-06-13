@@ -6,6 +6,7 @@ class UserAgentRotator:
     def __init__(self):
         pass
 
+    @classmethod
     def set_random_user_agent(self, driver_options):
 
         ua = UserAgent()

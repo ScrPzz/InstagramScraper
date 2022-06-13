@@ -12,12 +12,14 @@ class ChromeDriver:
     def __init__(self):
         pass
 
+    @classmethod
     def set_up_proxy(self):
         server = Server("./bin/browsermob-proxy-2.1.4/bin/browsermob-proxy")
         server.start()
         proxy = server.create_proxy()
         return proxy
 
+    @classmethod
     def set_up_driver(self, proxy):
         # proxy=self.set_up_proxy()
 
@@ -38,6 +40,7 @@ class ChromeDriver:
 
         return driver
 
+    @classmethod
     def make_IG_access_w_creds(self, driver, ig_usr, ig_pass, **kwargs):
 
         driver.get("https://www.instagram.com/")
