@@ -112,10 +112,11 @@ class CommentsScraper:
             logging.info("Output folder already exist")
         else:
             os.mkdir(args.output_folder)
+
         short_code = extract_shortcode_from_url(args.target_post)
 
         comments_df.to_csv(
-            f"{args.output_folder}/{short_code}_comments_clean.csv", mode="w+"
+            f"{args.output_folder}/{short_code}/comments_clean.csv", mode="w+"
         )
         logging.info("Data correctly saved/overwrote.")
         return comments_df
