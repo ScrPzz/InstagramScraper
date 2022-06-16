@@ -13,6 +13,7 @@ class ArgSpace:
 cols_to_keep = [
     "__typename",
     "id",
+    "taken_at_timestamp",
     "shortcode",
     "display_url",
     "owner",
