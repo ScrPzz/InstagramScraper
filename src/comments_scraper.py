@@ -1,15 +1,17 @@
 """ Comments scraper class"""
+import numpy as np
+import pandas as pd
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+
 import json
 import logging
 import os
 import random
 from time import sleep
 
-import numpy as np
-import pandas as pd
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
 from scripts.argparser import ArgParser
 from scripts.aux.misc_aux import extract_shortcode_from_url
@@ -94,6 +96,7 @@ class CommentsScraper:
 
     @classmethod
     def parse_and_save_data(self, raw_data, args):
+        "Parse raw scraped data and write to disk"
         RAW = {}
         for n, v in enumerate(raw_data["log"]["entries"]):
             if v["response"]["content"]["mimeType"] in [

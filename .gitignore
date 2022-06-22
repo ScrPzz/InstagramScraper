@@ -8,3 +8,5 @@ __pycache__/
 *.pyc
 .cache
 *.yaml
+Untitled.ipynb
+.ipynb_checkpoints/Untitled-checkpoint.ipynb

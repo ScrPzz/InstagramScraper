@@ -18,7 +18,7 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s: %(message)s", level=logging.CRITICAL
 )
 
-
+# Add load urls from file option
 class LikesScraper:
     def __init__(self):
         pass

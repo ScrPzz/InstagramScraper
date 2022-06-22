@@ -36,6 +36,14 @@ class ArgParser:
             required=False,
             default=5,
         )
+        # Add load urls from file option
+        optional.add_argument(
+            "-F",
+            "--source_file",
+            help="Get urls from a txt",
+            required=False,
+            default=None,
+        )
 
         return parser.parse_args()
 

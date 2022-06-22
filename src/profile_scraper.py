@@ -17,7 +17,7 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s: %(message)s", level=logging.CRITICAL
 )
 
-
+# Add load urls from file option
 class ProfileScraper:
     def __init__(self):
         pass
