@@ -4,14 +4,11 @@ import pandas as pd
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
-
+from scripts.aux.scraper_aux import save, check_or_create_folders
 import json
 import logging
-import os
 import random
 from time import sleep
-
 
 from scripts.argparser import ArgParser
 from scripts.aux.misc_aux import extract_shortcode_from_url
@@ -41,18 +38,29 @@ class CommentsScraper:
         return driver, proxy, args
 
     @classmethod
-    def scrape(self, driver, proxy, args, save_raw_data=bool):
-        proxy.new_har(
-            args.target_post, options={"captureHeaders": True, "captureContent": True}
-        )
-        driver.get(args.target_post)
+    def scrape(self, driver, proxy, args, save_raw_data=bool, **kwargs):
+
+        if "target_post" in kwargs:
+            proxy.new_har(
+                kwargs.get("target_post"),
+                options={"captureHeaders": True, "captureContent": True},
+            )
+            driver.get(kwargs.get("target_post"))
+            target = kwargs.get("target_post")
+        else:
+            proxy.new_har(
+                args.target_post,
+                options={"captureHeaders": True, "captureContent": True},
+            )
+            driver.get(args.target_post)
+            target = args.target_post
 
         # Random time intervals to sleep between load more comment button pushes
         ttw = []
         for i in range(0, 20):
             ttw.append(np.round(random.uniform(4, 8), 2))
 
-        ## ~ 24 comments loaded each iteration
+        # ~ 24 comments loaded each iteration
         check = True
         MAX_ITER = int(args.max_iterations)
         n = 0
@@ -78,25 +86,17 @@ class CommentsScraper:
                     logging.info("Exhausted all the post comments")
             n = n + 1
 
-        driver.quit()
         R = json.loads(json.dumps(proxy.har, ensure_ascii=False))
 
-        short_code = extract_shortcode_from_url(args.target_post)
         if save_raw_data:
-            if os.path.exists(args.output_folder):
-                os.mkdir(f"{args.output_folder}/{short_code}")
-            else:
-                os.mkdir(args.output_folder)
-                os.mkdir(f"{args.output_folder}/{short_code}")
+            save(data=R, target=target, args=args)
 
-            with open(f"{args.output_folder}/{short_code}/comments_raw.csv", "w+") as f:
-                json.dump(R, f)
-                logging.info("Raw data correctly saved/overwrote.")
         return R
 
     @classmethod
-    def parse_and_save_data(self, raw_data, args):
+    def parse_and_save_data(self, raw_data, args, target):
         "Parse raw scraped data and write to disk"
+
         RAW = {}
         for n, v in enumerate(raw_data["log"]["entries"]):
             if v["response"]["content"]["mimeType"] in [
@@ -106,20 +106,18 @@ class CommentsScraper:
                 try:
                     RAW[n] = json.loads(v["response"]["content"]["text"])["comments"]
                 except:
-                    pass  # raise ValueError("Unable to parse raw comments data")
+                    pass
 
         comments_df = pd.DataFrame.from_dict(RAW[list(RAW.keys())[0]])
+
         for k in list(RAW.keys())[1:]:
             comments_df = pd.concat([comments_df, pd.DataFrame.from_dict(RAW[k])])
 
         comments_df = comments_df.reset_index(drop=True)
 
-        if os.path.exists(args.output_folder):
-            logging.info("Output folder already exist")
-        else:
-            os.mkdir(args.output_folder)
+        check_or_create_folders(target=target, args=args)
 
-        short_code = extract_shortcode_from_url(args.target_post)
+        short_code = extract_shortcode_from_url(target)
 
         comments_df.to_csv(
             f"{args.output_folder}/{short_code}/comments_clean.csv", mode="w+"

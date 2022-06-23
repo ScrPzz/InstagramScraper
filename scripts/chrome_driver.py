@@ -23,7 +23,6 @@ class ChromeDriver:
 
     @classmethod
     def set_up_driver(self, proxy):
-        # proxy=self.set_up_proxy()
 
         co = webdriver.ChromeOptions()
         co.add_argument("--ignore-ssl-errors=yes")

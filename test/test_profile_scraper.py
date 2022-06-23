@@ -60,5 +60,5 @@ def test_profile_scraper_full():
     clean_data = scraper.parse_and_save_full_profile_raw_har(har=raw_data, args=args)
     assert ~raw_data.empty
     assert clean_data.columns == cols_to_keep
-    sleep(5)
+    sleep(2)
     Driver.quit()

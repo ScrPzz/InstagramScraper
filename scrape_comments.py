@@ -1,12 +1,39 @@
+"Single ore multiple post scraping for comments"
+
+
 from src.comments_scraper import CommentsScraper
+from scripts.aux.misc_aux import parse_url_list_from_file
+import time
+
 
 if __name__ == "__main__":
 
     scraper = CommentsScraper()
     # TODO add post images to the output folder
     Driver, proxy, args = scraper.setup()
-    raw_data = scraper.scrape(driver=Driver, args=args, proxy=proxy, save_raw_data=True)
 
-    _ = scraper.parse_and_save_data(raw_data=raw_data, args=args)
+    if args.source_file is None:
 
-    Driver.quit()
+        raw_data = scraper.scrape(
+            driver=Driver, args=args, proxy=proxy, save_raw_data=True
+        )
+
+        _ = scraper.parse_and_save_data(
+            raw_data=raw_data, args=args, target=args.target_post
+        )
+
+        Driver.quit()
+    else:
+        target_urls = parse_url_list_from_file(args.source_file)
+
+        for url in target_urls:
+            raw_data = scraper.scrape(
+                driver=Driver,
+                args=args,
+                proxy=proxy,
+                save_raw_data=True,
+                target_post=url,
+            )
+            _ = scraper.parse_and_save_data(raw_data=raw_data, args=args, target=url)
+            time.sleep(10)
+        Driver.quit()

@@ -19,3 +19,11 @@ def _finditem_nested_dict(obj, key):
             item = _finditem_nested_dict(v, key)
             if item is not None:
                 return item
+
+
+def parse_url_list_from_file(path):
+    urls = []
+    with open(path) as file:
+        while line := file.readline().rstrip():
+            urls.append(line)
+    return urls
