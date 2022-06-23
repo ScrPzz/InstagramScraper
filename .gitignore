@@ -2,6 +2,7 @@ IG_Scraper.egg-info/
 dist/
 output/
 IGscraper_output/
+exxon_comments/
 bmp.log
 server.log
 .env
