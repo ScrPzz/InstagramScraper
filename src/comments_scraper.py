@@ -23,6 +23,34 @@ class CommentsScraper:
     def __init__(self):
         pass
 
+    @staticmethod
+    def iterate(args, ttw, driver):
+        # ~ 24 comments loaded each iteration
+        check = True
+        MAX_ITER = int(args.max_iterations)
+        n = 0
+
+        while check and n <= MAX_ITER:
+            sleep(int(random.choice(ttw)))
+
+            try:
+                load_more_comments_button = WebDriverWait(driver, 5).until(
+                    EC.visibility_of_element_located(
+                        (By.CSS_SELECTOR, "[aria-label='Load more comments']")
+                    )
+                )
+                load_more_comments_button.click()
+            except:
+                check = False
+                if n == MAX_ITER:
+                    logging.warning(
+                        "Reached the max iterations number before exhausting the post comments. \
+                            You may consider to raise the max iterations number"
+                    )
+                else:
+                    logging.info("Exhausted all the post comments")
+            n = n + 1
+
     @classmethod
     def setup(self):
         argparser = ArgParser()
@@ -61,30 +89,7 @@ class CommentsScraper:
             ttw.append(np.round(random.uniform(4, 8), 2))
 
         # ~ 24 comments loaded each iteration
-        check = True
-        MAX_ITER = int(args.max_iterations)
-        n = 0
-
-        while check and n <= MAX_ITER:
-            sleep(int(random.choice(ttw)))
-
-            try:
-                load_more_comments_button = WebDriverWait(driver, 5).until(
-                    EC.visibility_of_element_located(
-                        (By.CSS_SELECTOR, "[aria-label='Load more comments']")
-                    )
-                )
-                load_more_comments_button.click()
-            except:
-                check = False
-                if n == MAX_ITER:
-                    logging.warning(
-                        "Reached the max iterations number before exhausting the post comments. \
-                            You may consider to raise the max iterations number"
-                    )
-                else:
-                    logging.info("Exhausted all the post comments")
-            n = n + 1
+        CommentsScraper.iterate(args=args, ttw=ttw, driver=driver)
 
         R = json.loads(json.dumps(proxy.har, ensure_ascii=False))
 

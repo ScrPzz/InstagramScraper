@@ -5,7 +5,7 @@ import os
 import random
 from time import sleep
 from urllib.parse import urlparse
-
+import urllib.request
 import numpy as np
 import pandas as pd
 
@@ -21,6 +21,28 @@ logging.basicConfig(
 class ProfileScraper:
     def __init__(self):
         pass
+
+    @staticmethod
+    def _iterate(args, driver, ttw):
+
+        ## 12 posts loaded each scroll
+        MAX_SCROLLS = int(args.max_iterations)
+        # Get scroll height
+        last_height = driver.execute_script("return document.body.scrollHeight")
+        n_iter = 0
+        while True and n_iter <= MAX_SCROLLS:
+            # Scroll down to bottom
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+            # Wait to load page
+            sleep(int(random.choice(ttw)))
+
+            # Calculate new scroll height and compare with last scroll height
+            new_height = driver.execute_script("return document.body.scrollHeight")
+            if new_height == last_height:
+                break
+            last_height = new_height
+            n_iter += 1
 
     @classmethod
     def parse_and_save_full_profile_raw_har(self, har, args):
@@ -42,6 +64,7 @@ class ProfileScraper:
             "product_type",
             "edge_liked_by",
         ]
+        # TODO try to download all the images from multi-images posts
 
         raw_data = []
         for n in range(0, len(har["log"]["entries"])):
@@ -93,7 +116,7 @@ class ProfileScraper:
         return driver, proxy, args
 
     @classmethod
-    def scrape(self, driver, proxy, args, save_raw_data=bool):
+    def scrape(self, driver, proxy, args, save_raw_data=bool, download_images=bool):
         """Function that make the proper scraping"""
         proxy.new_har(
             args.target_profile,
@@ -106,24 +129,27 @@ class ProfileScraper:
         for i in range(0, 20):
             ttw.append(np.round(random.uniform(5, 10), 2))
 
-        ## 12 posts loaded each scroll
-        MAX_SCROLLS = int(args.max_iterations)
-        # Get scroll height
-        last_height = driver.execute_script("return document.body.scrollHeight")
-        n_iter = 0
-        while True and n_iter <= MAX_SCROLLS:
-            # Scroll down to bottom
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        ProfileScraper._iterate(args=args, driver=driver, ttw=ttw)
+        # TODO check this:
 
-            # Wait to load page
-            sleep(int(random.choice(ttw)))
+        # ## 12 posts loaded each scroll
+        # MAX_SCROLLS = int(args.max_iterations)
+        # # Get scroll height
+        # last_height = driver.execute_script("return document.body.scrollHeight")
+        # n_iter = 0
+        # while True and n_iter <= MAX_SCROLLS:
+        #     # Scroll down to bottom
+        #     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-            # Calculate new scroll height and compare with last scroll height
-            new_height = driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height:
-                break
-            last_height = new_height
-            n_iter += 1
+        #     # Wait to load page
+        #     sleep(int(random.choice(ttw)))
+
+        #     # Calculate new scroll height and compare with last scroll height
+        #     new_height = driver.execute_script("return document.body.scrollHeight")
+        #     if new_height == last_height:
+        #         break
+        #     last_height = new_height
+        #     n_iter += 1
 
         sleep(5)
         raw_data = proxy.har
@@ -145,5 +171,18 @@ class ProfileScraper:
             json.dump(proxy.har, f)
             logging.info("Raw data correctly saved/overwrote.")
 
-        _ = self.parse_and_save_full_profile_raw_har(har=raw_data, args=args)
+        profile_infos_df = self.parse_and_save_full_profile_raw_har(
+            har=raw_data, args=args
+        )
+
+        if download_images:
+            download_images(args, profile_infos_df)
+
         return raw_data
+
+    # TODO check this:
+    @staticmethod
+    def download_images(args, df):
+        short_code_to_url = dict(zip(list(df["shortcode"], df["display_url"])))
+        for img in short_code_to_url.items():
+            urllib.request.urlretrieve(img[1], f"{args.output_folder}/{img[0]}.jpg")

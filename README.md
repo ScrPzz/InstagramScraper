@@ -119,6 +119,12 @@ Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. 
 
 - Login via session ID
 
+- Add multiple post option for comments scraper ✔️
+
+- Add multiple post option for likes scraper
+
+- Download all the images from multi-images posts (now i'm downloading only the first one)
+
 - User agent rotator onboarding
 
 - MAC address spoofer creation
@@ -138,5 +144,3 @@ Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. 
 - Create a folder for each post and profile ✔️
 
 - Extract location
-
-- Make the browser invisible?
