@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 from scripts.argparser import ArgParser
-from scripts._aux.misc_aux import _finditem_nested_dict
+from scripts.auxiliary.misc_aux import _finditem_nested_dict
 from scripts.chrome_driver import ChromeDriver
 
 logging.basicConfig(
@@ -116,7 +116,7 @@ class ProfileScraper:
         return driver, proxy, args
 
     @classmethod
-    def scrape(self, driver, proxy, args, save_raw_data=bool, download_images=bool):
+    def scrape(self, driver, proxy, args, save_raw_data=bool, download_imgs=bool):
         """Function that make the proper scraping"""
         proxy.new_har(
             args.target_profile,
@@ -175,14 +175,14 @@ class ProfileScraper:
             har=raw_data, args=args
         )
 
-        if download_images:
-            download_images(args, profile_infos_df)
+        if download_imgs:
+            ProfileScraper.download_images(args, profile_infos_df)
 
         return raw_data
 
     # TODO check this:
     @staticmethod
     def download_images(args, df):
-        short_code_to_url = dict(zip(list(df["shortcode"], df["display_url"])))
+        short_code_to_url = dict(zip(list(df["shortcode"]), list(df["display_url"])))
         for img in short_code_to_url.items():
             urllib.request.urlretrieve(img[1], f"{args.output_folder}/{img[0]}.jpg")

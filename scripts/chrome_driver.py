@@ -14,8 +14,7 @@ class ChromeDriver:
 
     @classmethod
     def set_up_proxy(self):
-        server = Server(
-            "/home/atogni/_projects/IG_scraper/bin/browsermob-proxy-2.1.4/bin/browsermob-proxy"
+        server = Server('./bin/browsermob-proxy-2.1.4/bin/browsermob-proxy'
         )
         server.start()
         proxy = server.create_proxy()

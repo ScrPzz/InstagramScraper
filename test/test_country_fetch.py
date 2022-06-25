@@ -1,5 +1,5 @@
 
-from scripts._aux.geoloc_aux import fetch_country_code, fetch_country_name
+from scripts.auxiliary.geoloc_aux import fetch_country_code, fetch_country_name
 
 
 def test_country_code_fetch():

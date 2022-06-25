@@ -4,14 +4,14 @@ import pandas as pd
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from scripts._aux.scraper_aux import save, check_or_create_folders
+#from scripts.auxiliary.scraper_aux import save, check_or_create_folders
 import logging
 import random
 from time import sleep
 import json
 
 from scripts.argparser import ArgParser
-from scripts._aux.misc_aux import extract_shortcode_from_url
+from scripts.auxiliary.misc_aux import extract_shortcode_from_url
 from scripts.chrome_driver import ChromeDriver
 
 logging.basicConfig(
@@ -94,7 +94,8 @@ class CommentsScraper:
         R = json.loads(json.dumps(proxy.har, ensure_ascii=False))
 
         if save_raw_data:
-            save(data=R, target=target, args=args)
+            #save(data=R, target=target, args=args)
+            pass
 
         return R
 
@@ -120,7 +121,7 @@ class CommentsScraper:
 
         comments_df = comments_df.reset_index(drop=True)
 
-        check_or_create_folders(target=target, args=args)
+        #check_or_create_folders(target=target, args=args)
 
         short_code = extract_shortcode_from_url(target)
 
