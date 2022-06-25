@@ -2,13 +2,11 @@ import logging
 import os
 import json
 
-
-from scripts.aux.misc_aux import extract_shortcode_from_url
+from scripts._aux.misc_aux import extract_shortcode_from_url
 
 logging.basicConfig(
     format="%(asctime)s | %(levelname)s: %(message)s", level=logging.CRITICAL
 )
-
 
 def save(data, target, args):
 

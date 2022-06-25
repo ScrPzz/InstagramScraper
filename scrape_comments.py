@@ -2,7 +2,7 @@
 
 
 from src.comments_scraper import CommentsScraper
-from scripts.aux.misc_aux import parse_url_list_from_file
+from scripts._aux.misc_aux import parse_url_list_from_file
 import time
 
 

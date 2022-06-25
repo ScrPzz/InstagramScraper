@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 from scripts.argparser import ArgParser
-from scripts.aux.misc_aux import _finditem_nested_dict
+from scripts._aux.misc_aux import _finditem_nested_dict
 from scripts.chrome_driver import ChromeDriver
 
 logging.basicConfig(

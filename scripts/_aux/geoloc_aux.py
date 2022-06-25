@@ -7,7 +7,6 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s: %(message)s", level=logging.CRITICAL
 )
 
-
 def fetch_country_code(country: str):
     """Function that extract country infos (lat, long and full name) from a country code string.
     If no match satisfying match is found, will choose a random location.

@@ -11,7 +11,7 @@ import pandas as pd
 from selenium.webdriver.common.by import By
 
 from scripts.argparser import ArgParser
-from scripts.aux.misc_aux import extract_shortcode_from_url
+from scripts._aux.misc_aux import extract_shortcode_from_url
 from scripts.chrome_driver import ChromeDriver
 
 logging.basicConfig(

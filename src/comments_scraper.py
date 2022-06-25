@@ -4,14 +4,14 @@ import pandas as pd
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from scripts.aux.scraper_aux import save, check_or_create_folders
-import json
+from scripts._aux.scraper_aux import save, check_or_create_folders
 import logging
 import random
 from time import sleep
+import json
 
 from scripts.argparser import ArgParser
-from scripts.aux.misc_aux import extract_shortcode_from_url
+from scripts._aux.misc_aux import extract_shortcode_from_url
 from scripts.chrome_driver import ChromeDriver
 
 logging.basicConfig(
