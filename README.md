@@ -20,7 +20,11 @@ Go to the project folder and run:
 
 ```python setup.py develop```
 
-I suggest you not to use your personal IG account to leverage this tool: IG policies are pretty strict and variable and your profile is not unlikely to be banned, even if temporarily. As of today (June 7th 2022) the limit of calls to the IG apis seems to be 200/hour. A rule of thumb:
+Windows users:
+
+- Downgrade java to version 11 to avoid browsermob proxy errors
+
+I *suggest you not to use your personal IG account* to leverage this tool: IG policies are pretty strict and variable and your profile is not unlikely to be banned, even if temporarily. As of today (June 7th 2022) the limit of calls to the IG apis seems to be 200/hour. A rule of thumb:
 
 - access to a post ~ 1 call
 
