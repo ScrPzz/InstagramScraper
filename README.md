@@ -3,7 +3,7 @@
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-I present you a Python tool that allows you to scrape profile informations, likes and comments from Instagram.
+I present you a Python+Selenium tool that allows you to scrape profile informations, likes and comments from Instagram.
 Remember that scraping is a potentially illegal activity. This tool allows you to scrape, but the author does not encourage you to do it, nor to retain or sell scraped data.
 
 ## Setting up the project
@@ -24,13 +24,7 @@ Windows users:
 
 - Downgrade java to version 11 to avoid browsermob proxy errors
 
-I *suggest you not to use your personal IG account* to leverage this tool: IG policies are pretty strict and variable and your profile is not unlikely to be banned, even if temporarily. As of today (June 7th 2022) the limit of calls to the IG apis seems to be 200/hour. A rule of thumb:
-
-- access to a post ~ 1 call
-
-- 1 iteration ~ 1 call
-
-- 12 post loaded ~ 1 call
+I *suggest you not to use your personal IG account* to leverage this tool: IG policies are pretty strict and variable and your profile is not unlikely to be banned, even if temporarily.
 
 All the scripts got some `sleep` with random and fixed values to not spam calls too fast and the db requests too are randomized, but i strongly suggest you to not be greedy. Go slow!
 
@@ -127,7 +121,7 @@ Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. 
 
 - Add multiple post option for likes scraper
 
-- Download all the images from multi-images posts (now i'm downloading only the first one)
+- Download all the images from multi-images posts (now it's downloading only the first one)
 
 - User agent rotator onboarding
 
@@ -135,7 +129,7 @@ Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. 
 
 - Geolocation spoofer onboarding
 
-- Add deep scrape functionality
+- Add deep scrape functionality (full profile + comments and likes for each post)
 
 - Containerize
 
@@ -147,4 +141,6 @@ Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. 
 
 - Create a folder for each post and profile ✔️
 
-- Extract location
+- Extract location and other infos from posts.
+
+- Scrape instagram stories

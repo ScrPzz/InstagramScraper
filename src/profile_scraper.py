@@ -17,27 +17,27 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s: %(message)s", level=logging.CRITICAL
 )
 
-# Add load urls from file option
+
+# TODO: check if a post is Sidecar (multiple images) and save the images on a separated folder.
+
+
 class ProfileScraper:
     def __init__(self):
         pass
 
     @staticmethod
-    def _iterate(args, driver, ttw):
+    def _iterate(args, driver, ttw):  ## 12 posts loaded each scroll
 
-        ## 12 posts loaded each scroll
         MAX_SCROLLS = int(args.max_iterations)
-        # Get scroll height
+
         last_height = driver.execute_script("return document.body.scrollHeight")
         n_iter = 0
         while True and n_iter <= MAX_SCROLLS:
-            # Scroll down to bottom
+
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-            # Wait to load page
             sleep(int(random.choice(ttw)))
 
-            # Calculate new scroll height and compare with last scroll height
             new_height = driver.execute_script("return document.body.scrollHeight")
             if new_height == last_height:
                 break
@@ -63,8 +63,8 @@ class ProfileScraper:
             "nft_asset_info",
             "product_type",
             "edge_liked_by",
+            "edge_sidecar_to_children",
         ]
-        # TODO try to download all the images from multi-images posts
 
         raw_data = []
         for n in range(0, len(har["log"]["entries"])):
@@ -103,7 +103,7 @@ class ProfileScraper:
 
     @classmethod
     def setup(self):
-        """Function that seutp the driver and access IG"""
+        """Function that setup the driver and access IG"""
         argparser = ArgParser()
         chrome_driver = ChromeDriver()
         proxy = chrome_driver.set_up_proxy()
@@ -130,26 +130,6 @@ class ProfileScraper:
             ttw.append(np.round(random.uniform(5, 10), 2))
 
         ProfileScraper._iterate(args=args, driver=driver, ttw=ttw)
-        # TODO check this:
-
-        # ## 12 posts loaded each scroll
-        # MAX_SCROLLS = int(args.max_iterations)
-        # # Get scroll height
-        # last_height = driver.execute_script("return document.body.scrollHeight")
-        # n_iter = 0
-        # while True and n_iter <= MAX_SCROLLS:
-        #     # Scroll down to bottom
-        #     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-        #     # Wait to load page
-        #     sleep(int(random.choice(ttw)))
-
-        #     # Calculate new scroll height and compare with last scroll height
-        #     new_height = driver.execute_script("return document.body.scrollHeight")
-        #     if new_height == last_height:
-        #         break
-        #     last_height = new_height
-        #     n_iter += 1
 
         sleep(5)
         raw_data = proxy.har
@@ -176,13 +156,65 @@ class ProfileScraper:
         )
 
         if download_imgs:
-            ProfileScraper.download_images(args, profile_infos_df)
+            ProfileScraper.download_images(
+                args, profile_infos_df, profile_short_url=profile_short_url
+            )
 
         return raw_data
 
-    # TODO check this:
     @staticmethod
-    def download_images(args, df):
-        short_code_to_url = dict(zip(list(df["shortcode"]), list(df["display_url"])))
-        for img in short_code_to_url.items():
-            urllib.request.urlretrieve(img[1], f"{args.output_folder}/{img[0]}.jpg")
+    def download_images(args, df, profile_short_url):
+        """Save posts images:
+        - Single post images using the shortcode as image name;
+        - Sidecar post (multiple images posts): shortcode as folder name"""
+
+        def _parse_sidecar_data(shortcode_to_data):
+            """Auxiliary function that returns a dict:
+            {'shortcode': [list of direct urls]}"""
+            parsed_sidecar_data = {}
+            for k, v in short_code_to_url_sidecar.items():
+                if isinstance(v, dict):
+                    _v = []
+                    for n in range(0, len(v["edges"])):
+                        _v.append(v["edges"][n]["node"]["display_url"])
+                    parsed_sidecar_data.update({k: _v})
+
+            return parsed_sidecar_data
+
+        base_profile_url = f"{args.output_folder}/{profile_short_url}"
+        short_code_to_url_single_post = dict(
+            zip(list(df["shortcode"]), list(df["display_url"]))
+        )
+
+        short_code_to_url_sidecar = dict(
+            zip(list(df["shortcode"]), list(df["edge_sidecar_to_children"]))
+        )
+        short_code_to_url_sidecar = _parse_sidecar_data(short_code_to_url_sidecar)
+
+        if os.path.exists(f"{base_profile_url}/post_imgs"):  # Images folder creation
+            pass
+        else:
+            os.mkdir(f"{base_profile_url}/post_imgs")
+
+        for k, v in short_code_to_url_sidecar.items():  # Saving single posts imgs
+            if os.path.exists(f"{base_profile_url}/post_imgs/{k}"):
+                pass
+            else:
+                os.mkdir(f"{base_profile_url}/post_imgs/{k}")
+            n = 0
+            for img_url in v:
+                urllib.request.urlretrieve(
+                    img_url, f"{base_profile_url}/post_imgs/{k}/{k}_{n}.jpg"
+                )
+                n += 1
+
+        for img in short_code_to_url_single_post.items():  # Saving single posts imgs
+            urllib.request.urlretrieve(
+                img[1], f"{base_profile_url}/post_imgs/{img[0]}.jpg"
+            )
+
+        with open(
+            f"{base_profile_url}/images_direct_urls.json", "w+"
+        ) as f:  # saving the full shortcode to url data
+            short_code_to_url_single_post.update(short_code_to_url_sidecar)
+            json.dump(short_code_to_url_single_post, f)

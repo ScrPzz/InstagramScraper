@@ -1,5 +1,4 @@
 import os
-from time import sleep
 
 from scripts.chrome_driver import ChromeDriver
 from src.profile_scraper import ProfileScraper
@@ -26,6 +25,7 @@ cols_to_keep = [
     "nft_asset_info",
     "product_type",
     "edge_liked_by",
+    "edge_sidecar_to_children",
 ]
 
 
@@ -52,13 +52,12 @@ def test_profile_scraper_full():
     Driver = chrome_driver.make_IG_access_w_creds(
         driver=Driver, ig_usr=args.username, ig_pass=args.password
     )
-    sleep(2)
 
     raw_data = scraper.scrape(driver=Driver, proxy=proxy, args=args, save_raw_data=True)
-    assert ~raw_data.empty
 
     clean_data = scraper.parse_and_save_full_profile_raw_har(har=raw_data, args=args)
-    assert ~raw_data.empty
-    assert clean_data.columns == cols_to_keep
-    sleep(2)
-    Driver.quit()
+    assert ~clean_data.empty
+    try:
+        Driver.quit()
+    except:
+        pass
