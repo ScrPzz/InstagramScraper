@@ -1,10 +1,10 @@
 "Single ore multiple post scraping for comments"
 
 
-from src.comments_scraper import CommentsScraper
-from scripts.auxiliary.misc_aux import parse_url_list_from_file
 import time
 
+from scripts.auxiliary.misc_aux import parse_url_list_from_file
+from src.comments_scraper import CommentsScraper
 
 if __name__ == "__main__":
 
