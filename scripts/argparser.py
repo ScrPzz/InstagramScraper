@@ -35,7 +35,7 @@ class ArgParser:
             "--output_folder",
             help="Saving folder",
             required=False,
-            default="./IGscraper_output",
+            default="./IGscraper_output/",
         )
         optional.add_argument(
             "-N",

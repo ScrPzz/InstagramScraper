@@ -3,9 +3,10 @@ import json
 import logging
 import os
 import random
+import urllib.request
 from time import sleep
 from urllib.parse import urlparse
-import urllib.request
+
 import numpy as np
 import pandas as pd
 

@@ -1,17 +1,17 @@
 """ Comments scraper class"""
+import json
+import logging
+import random
+from time import sleep
+
 import numpy as np
 import pandas as pd
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from scripts.auxiliary.scraper_aux import save, check_or_create_folders
-import logging
-import random
-from time import sleep
-import json
 
 from scripts.argparser import ArgParser
-from scripts.auxiliary.misc_aux import extract_shortcode_from_url
+from scripts.auxiliary.scraper_aux import check_or_create_folders, save
 from scripts.chrome_driver import ChromeDriver
 
 logging.basicConfig(
@@ -122,10 +122,12 @@ class CommentsScraper:
 
         check_or_create_folders(target=target, args=args)
 
-        short_code = extract_shortcode_from_url(target)
+        short_code = target.split("/")[-1]
 
+        # TODO FIX get the profile name from somewhere and create the correct folder!
         comments_df.to_csv(
-            f"{args.output_folder}/{short_code}/comments_clean.csv", mode="w+"
+            f"{args.output_folder}/{short_code}_comments_clean.csv", mode="w+"
         )
         logging.info("Data correctly saved/overwrote.")
+        # print(f'Dave saved in: {f"{args.output_folder}_{short_code}_comments_clean.csv"}')
         return comments_df

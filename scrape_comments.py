@@ -3,6 +3,8 @@
 
 import time
 
+from tqdm import tqdm
+
 from scripts.auxiliary.misc_aux import parse_url_list_from_file
 from src.comments_scraper import CommentsScraper
 
@@ -25,8 +27,7 @@ if __name__ == "__main__":
         Driver.quit()
     else:
         target_urls = parse_url_list_from_file(args.source_file)
-
-        for url in target_urls:
+        for url in tqdm(target_urls):
             raw_data = scraper.scrape(
                 driver=Driver,
                 args=args,
