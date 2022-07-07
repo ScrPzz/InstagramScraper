@@ -19,9 +19,6 @@ logging.basicConfig(
 )
 
 
-# TODO: check if a post is Sidecar (multiple images) and save the images on a separated folder.
-
-
 class ProfileScraper:
     def __init__(self):
         pass
