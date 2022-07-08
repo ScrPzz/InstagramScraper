@@ -55,7 +55,13 @@ To start the tool quickly go to the project folder and run:
 
 ``` python scrape_comments.py -u {IG_USER} -p {IG_PASS} -t {POST_FULL_URL} ```
 
-this will get you *roughly* 100 likes, if available.
+this will get you *roughly* 100 comments, if available.
+
+You can also provide a list of post urls to scrape:
+
+```python scrape_comments.py -u {IG_USER} -p {IG_PASS} -F {.txt containing 1 url/row}```
+
+this will get you ]roughly] 100 comments for each post if available.
 
 Optional args are:
 
@@ -121,7 +127,7 @@ Everyone is warmly invited to suggest changes, fixes, new functionalities, ecc. 
 
 - Add multiple post option for likes scraper
 
-- Download all the images from multi-images posts (now it's downloading only the first one)
+- Download all the images from multi-images posts (now it's downloading only the first one) ✔️
 
 - User agent rotator onboarding
 
