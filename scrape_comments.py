@@ -38,3 +38,6 @@ if __name__ == "__main__":
             _ = scraper.parse_and_save_data(raw_data=raw_data, args=args, target=url)
             time.sleep(10)
         Driver.quit()
+
+
+# TODO add 'download profile pics flag. Has to be at this stage because of the exceeding date of the links.
