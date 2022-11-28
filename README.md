@@ -90,8 +90,8 @@ Output will be a pandas dataframe written to a csv file and saved on the choosen
 
 ## Tests
 
-There basic are tests units for each tool and to check the accessibility of Instagram by Selenoum. More to come.
-Remember that also tests will make calls. I suggest you to run only the test you need and not the whole test suite at a time.
+There are basic tests units for each tool and to check the accessibility of Instagram by Selenium. More to come.
+Remember that tests will make calls as well. I suggest you to run only the test you need and not the whole test suite at the same time to avoid the risk of exceeding the calls/minute threshold.
 
 ## Known issues
 
